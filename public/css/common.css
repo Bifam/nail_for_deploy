@@ -1,0 +1,15 @@
+.display-inline {
+    display: inline-block;
+}
+
+.align-right {
+    float: right;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.btn-action {
+    width: 100px;
+}
