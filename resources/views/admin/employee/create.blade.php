@@ -4,7 +4,7 @@
 
 @section('content_header')
     <div>
-        <h1 class="display-inline">Edit Employee Information</h1>
+        <h1 class="display-inline">Add Employee</h1>
         <a class="btn btn-primary display-inline align-right" href={{ url()->previous() }}>Back</a>
     </div>
 @stop
@@ -22,41 +22,40 @@
         </div>
         <br />
         @endif
-        <form method="post" action="{{ route('employee.update', $employee->id) }}">
-            @method('PUT')
+        <form method="POST" action="{{ route('employee.store') }}">
             @csrf
             <div class="form-group">
 
                 <label for="first_name">First Name *</label>
-                <input type="text" class="form-control" maxlength="256" name="first_name" value="{{ $employee->first_name }}" />
+                <input type="text" class="form-control" maxlength="256" name="first_name" value="{{ $employee->first_name??'' }}" />
             </div>
 
             <div class="form-group">
                 <label for="last_name">Last Name *</label>
-                <input type="text" class="form-control" maxlength="256" name="last_name" value="{{ $employee->last_name }}" />
+                <input type="text" class="form-control" maxlength="256" name="last_name" value="{{ $employee->last_name??'' }}" />
             </div>
 
             <div class="form-group">
                 <label for="email">Email *</label>
-                <input type="text" class="form-control" maxlength="256" name="email" value="{{ $employee->email }}" />
+                <input type="text" class="form-control" maxlength="256" name="email" value="{{ $employee->email??'' }}" />
             </div>
             <div class="form-group">
                 <label for="sin_number">SIN Number *</label>
-                <input type="text" class="form-control" maxlength="16" name="sin_number" value={{ $employee->sin_number }} />
+                <input type="text" class="form-control" maxlength="16" name="sin_number" value="{{ $employee->sin_number??'' }}" />
             </div>
             <div class="form-group">
                 <label for="address">Address</label>
-                <input type="text" class="form-control" maxlength="256" name="address" value="{{ $employee->address }}" />
+                <input type="text" class="form-control" maxlength="256" name="address" value="{{ $employee->address??'' }}" />
             </div>
             <div class="form-group">
                 <label for="phone_number">Phone</label>
-                <input type="number" class="form-control" maxlength="16" name="phone_number" value={{ $employee->phone_number }} />
+                <input type="number" class="form-control" maxlength="16" name="phone_number" value={{ $employee->phone_number??'' }} />
             </div>
             <div class="form-group">
                 <label for="worked_type">Worked Type</label>
-                <select name="worked_type" class="form-control" value={{ $employee->worked_type }}>
+                <select name="worked_type" class="form-control" value={{ $employee->worked_type??1 }}>
                 @foreach ($workedTypes as $workedType)
-                    <option value="{{ $workedType['value'] }}" {{ ( $workedType['value'] == $employee->worked_type) ? 'selected' : '' }}>
+                    <option value="{{ $workedType['value'] }}" {{ ( $workedType['value'] == ($employee->worked_type??1)) ? 'selected' : '' }}>
                         {{ $workedType['name'] }}
                     </option>
                 @endforeach
@@ -64,9 +63,9 @@
             </div>
             <div class="form-group">
                 <label for="paid_type">Paid Type</label>
-                <select name="paid_type" class="form-control" value={{ $employee->paid_type }}>
+                <select name="paid_type" class="form-control" value={{ $employee->paid_type??1 }}>
                 @foreach ($paidTypes as $paidType)
-                    <option value="{{ $paidType['value'] }}" {{ ( $paidType['value'] == $employee->paid_type) ? 'selected' : '' }}>
+                    <option value="{{ $paidType['value'] }}" {{ ( $paidType['value'] == ($employee->paid_type??1)) ? 'selected' : '' }}>
                         {{ $paidType['name'] }}
                     </option>
                 @endforeach
@@ -74,10 +73,10 @@
             </div>
             <div class="form-group">
                 <label for="salary">Salary *</label>
-                <input type="number" class="form-control" maxlength="16" name="salary" value={{ $employee->salary }} />
+                <input type="number" class="form-control" maxlength="16" name="salary" value={{ $employee->salary??'' }} />
             </div>
             <div class="form-group align-center">
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-primary">Add</button>
             </div>
         </form>
     </div>

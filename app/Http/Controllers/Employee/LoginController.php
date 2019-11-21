@@ -1,11 +1,10 @@
 <?php
+namespace App\Http\Controllers\Employee;
 
-namespace App\Http\Controllers\Auth;
-
-use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 class LoginController extends Controller
 {
@@ -27,32 +26,33 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/home';
 
+    protected $redirectTo = '/home';
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth.admin')->except('logout');
-    // }
+
+    public function username()
+    {
+        return 'email';
+    }
 
     public function showLoginForm()
     {
-        return view('auth.login');
+        return view('employee.auth.login');
+    }
+
+    public function guard()
+    {
+        return Auth::guard('user');
     }
 
     public function logout(Request $request)
     {
-        Auth::guard()->logout();
+        Auth::guard('user')->logout();
 
-        return redirect('/admin/login');
+        return redirect('/login');
     }
-
-    // public function guard()
-    // {
-    //     return Auth::guard('user');
-    // }
 }

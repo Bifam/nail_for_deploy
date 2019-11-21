@@ -29,7 +29,7 @@ class Employee extends Authenticatable
 {
     use Notifiable;
 
-    protected $guard = 'employee';
+    protected $guard = 'user';
 
     /**
      * @var array

@@ -50,7 +50,6 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css">
-    <link rel="stylesheet" href="/css/common.css">
 @stop
 
 @section('js')
