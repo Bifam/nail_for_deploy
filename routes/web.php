@@ -46,6 +46,7 @@ Route::prefix('admin')->group(function() {
         Route::get('/home', 'Admin\HomeController@index')->name('admin.home');
         // Route::get('/employee', 'Admin\EmployeeController@index')->name('admin.employee.list');
         Route::resource('employee', 'Admin\EmployeeController');
+        // Route::post('/employee', 'Admin\HomeController@index')->name('employee.search');
     });
 });
 

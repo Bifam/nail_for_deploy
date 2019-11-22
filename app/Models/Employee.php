@@ -34,7 +34,7 @@ class Employee extends Authenticatable
     /**
      * @var array
      */
-    protected $fillable = ['sin_number', 'phone_number', 'address', 'worked_type', 'paid_type', 'salary', 'contract_begin_date', 'contract_end_date', 'sex', 'birthday', 'email', 'first_name', 'created_at', 'updated_at', 'last_name'];
+    protected $fillable = ['sin_number', 'phone_number', 'address', 'worked_type', 'paid_type', 'salary', 'contract_begin_date', 'contract_end_date', 'sex', 'birthday', 'email', 'first_name', 'created_at', 'updated_at', 'last_name', 'password'];
 
     /**
      * The attributes that should be hidden for arrays.

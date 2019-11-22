@@ -228,4 +228,38 @@ return [
 
     ],
 
+    'sex' => [
+        [
+            'value' => 1,
+            'name' => 'Male',
+        ],
+        [
+            'value' => 2,
+            'name' => 'Female',
+        ],
+        [
+            'value' => 3,
+            'name' => 'Other',
+        ],
+    ],
+    'worked_types' => [
+        [
+            'value' => 1,
+            'name' => 'Fulltime',
+        ],
+        [
+            'value' => 2,
+            'name' => 'Part-time',
+        ],
+    ],
+    'paid_types' => [
+        [
+            'value' => 1,
+            'name' => 'Hours',
+        ],
+        [
+            'value' => 2,
+            'name' => 'Portion',
+        ],
+    ],
 ];

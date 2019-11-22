@@ -9,64 +9,34 @@ use Illuminate\Validation\Rule;
 
 class EmployeeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Employee::all();
+        $search = trim($request->input('search'));
+        $employees = Employee::where('first_name','LIKE','%'.$search.'%')
+        ->orWhere('last_name','LIKE','%'.$search.'%')
+        ->orWhere('email','LIKE','%'.$search.'%')
+        ->paginate(20);
 
-        return view('admin.employee.list', compact('employees'));
+        return view('admin.employee.list', compact('employees', 'search'));
     }
 
     public function create()
     {
-        $workedTypes = [
-            [
-                'value' => 1,
-                'name' => 'Fulltime',
-            ],
-            [
-                'value' => 2,
-                'name' => 'Part-time',
-            ],
-        ];
-        $paidTypes = [
-            [
-                'value' => 1,
-                'name' => 'Hours',
-            ],
-            [
-                'value' => 2,
-                'name' => 'Portion',
-            ],
-        ];
+        $sex = \Config::get('app.sex');
+        $workedTypes = \Config::get('app.worked_types');
+        $paidTypes = \Config::get('app.paid_types');
         // var_dump($workedTypes);die;
-        return view('admin.employee.create', compact('workedTypes', 'paidTypes'));
+        return view('admin.employee.create', compact('workedTypes', 'paidTypes', 'sex'));
     }
 
     public function edit($employeeId)
     {
         $employee = Employee::find($employeeId);
-        $workedTypes = [
-            [
-                'value' => 1,
-                'name' => 'Fulltime',
-            ],
-            [
-                'value' => 2,
-                'name' => 'Part-time',
-            ],
-        ];
-        $paidTypes = [
-            [
-                'value' => 1,
-                'name' => 'Hours',
-            ],
-            [
-                'value' => 2,
-                'name' => 'Portion',
-            ],
-        ];
+        $sex = \Config::get('app.sex');
+        $workedTypes = \Config::get('app.worked_types');
+        $paidTypes = \Config::get('app.paid_types');
         // var_dump($workedTypes);die;
-        return view('admin.employee.edit', compact('employee', 'workedTypes', 'paidTypes'));
+        return view('admin.employee.edit', compact('employee', 'workedTypes', 'paidTypes', 'sex'));
     }
 
     public function store(Request $request)
@@ -75,12 +45,12 @@ class EmployeeController extends Controller
             'first_name' => ['required', 'max:255'],
             'last_name' => ['required', 'max:255'],
             'email' => ['required', 'max:255', 'unique:employees'],
+            'password' => ['required', 'min:6', 'max:16'],
             'sin_number' => ['required', 'max:16'],
             'worked_type' => 'required',
             'paid_type' => 'required',
             'salary' => ['required', 'max:999999' ]
         ]);
-
         Employee::create($request->all());
 
         return redirect('/admin/employee')->with('success', 'Employee created!');
@@ -98,6 +68,8 @@ class EmployeeController extends Controller
             'salary' => ['required', 'max:999999' ]
         ]);
 
+
+
         $employee = Employee::find($id);
         $employee->first_name = $request->get('first_name');
         $employee->last_name = $request->get('last_name');
@@ -108,6 +80,9 @@ class EmployeeController extends Controller
         $employee->worked_type = $request->get('worked_type');
         $employee->paid_type = $request->get('paid_type');
         $employee->salary = $request->get('salary');
+        if (!empty($request->get('password'))) {
+            $employee->password = Hash::make($request->get('password'));
+        }
         $employee->save();
 
         return redirect('/admin/employee')->with('success', 'Employee updated!');

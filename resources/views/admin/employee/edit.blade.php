@@ -3,10 +3,7 @@
 @section('title', 'Employee Management')
 
 @section('content_header')
-    <div>
-        <h1 class="display-inline">Edit Employee Information</h1>
-        <a class="btn btn-primary display-inline align-right" href={{ url()->previous() }}>Back</a>
-    </div>
+        <h1 class="display-inline">Edit Employee</h1>
 @stop
 
 @section('content')
@@ -41,8 +38,22 @@
                 <input type="text" class="form-control" maxlength="256" name="email" value="{{ $employee->email }}" />
             </div>
             <div class="form-group">
+                <label for="password">Password (Leave blank to keep current password)</label>
+                <input type="password" class="form-control" maxlength="16" name="password" value="{{ old('password') }}" />
+            </div>
+            <div class="form-group">
                 <label for="sin_number">SIN Number *</label>
                 <input type="text" class="form-control" maxlength="16" name="sin_number" value={{ $employee->sin_number }} />
+            </div>
+            <div class="form-group">
+                <label for="sex">Sex</label>
+                <select name="sex" class="form-control" value={{ $employee->sex??1 }}>
+                @foreach ($sex as $sexType)
+                    <option value="{{ $sexType['value'] }}" {{ ( $sexType['value'] == ($employee->sex??1)) ? 'selected' : '' }}>
+                        {{ $sexType['name'] }}
+                    </option>
+                @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="address">Address</label>
@@ -76,8 +87,11 @@
                 <label for="salary">Salary *</label>
                 <input type="number" class="form-control" maxlength="16" name="salary" value={{ $employee->salary }} />
             </div>
-            <div class="form-group align-center">
-                <button type="submit" class="btn btn-primary">Update</button>
+            <div class="form-inline justify-content-center">
+                <button type="submit" class="btn btn-primary fixed-btn mr-2"><i class="fa fa-edit"></i>&nbsp Update</button>
+                <a class="btn btn-primary fixed-btn" href="{{ route('employee.index') }}">
+                    <i class="fa fa-arrow-left"></i>&nbsp Back
+                </a>
             </div>
         </form>
     </div>
@@ -86,6 +100,7 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/common.css">
 @stop
 
 @section('js')
