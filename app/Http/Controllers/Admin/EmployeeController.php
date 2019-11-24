@@ -15,6 +15,7 @@ class EmployeeController extends Controller
         $employees = Employee::where('first_name','LIKE','%'.$search.'%')
         ->orWhere('last_name','LIKE','%'.$search.'%')
         ->orWhere('email','LIKE','%'.$search.'%')
+        ->sortable()
         ->paginate(20);
 
         return view('admin.employee.list', compact('employees', 'search'));
@@ -88,11 +89,14 @@ class EmployeeController extends Controller
         return redirect('/admin/employee')->with('success', 'Employee updated!');
     }
 
-    public function delete($employeeId)
+    public function destroy($employeeId)
     {
         $employee = Employee::find($employeeId);
+        if (!$employee) {
+            return Redirect::back()->withErrors(['msg', 'Error occurred while performing delete!']);
+        }
         $employee->delete();
 
-        return redirect('/admin/employees')->with('success', 'Employee deleted!');
+        return redirect('/admin/employee')->with('success', 'Employee deleted!');
     }
 }

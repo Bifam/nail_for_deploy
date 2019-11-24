@@ -5,6 +5,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 
 class LoginController extends Controller
 {
@@ -47,6 +48,20 @@ class LoginController extends Controller
     public function guard()
     {
         return Auth::guard('user');
+    }
+
+    public function login(Request $request)
+    {
+        $rememberMe = $request->remember ? true : false;
+        $employee = Employee::where(['email' => $request->email, 'password' => $request->password])->first();
+
+        if (!empty($employee)) {
+            Auth::guard('user')->login($employee, $rememberMe);
+
+            return redirect()->intended('/home');
+        }
+
+        return back()->withInput()->withErrors(['Invalid Login Credential!']);
     }
 
     public function logout(Request $request)

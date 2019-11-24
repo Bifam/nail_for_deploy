@@ -7,6 +7,7 @@
             <div class="fadeIn first">
                 <p>Login to Nail Salon System</p>
             </div>
+            @include('common.alert')
             <form class="form-horizontal" role="form" method="POST" action="{{ route('employee.login') }}">
                 {!! csrf_field() !!}
 
@@ -34,7 +35,7 @@
                     </div>
                 </div>
 
-                <!-- <div class="form-group">
+                <div class="form-group">
                     <div class="col-md-12">
                         <div class="checkbox fadeIn fourth">
                             <label>
@@ -42,7 +43,7 @@
                             </label>
                         </div>
                     </div>
-                </div> -->
+                </div>
 
                 <div class="form-group">
                     <div class="col-md-12">

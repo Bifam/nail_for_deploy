@@ -15,7 +15,7 @@
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
+                <p>{{ $error }}</p>
                 @endforeach
             </ul>
         </div>
@@ -89,7 +89,7 @@
                 <input type="number" class="form-control" maxlength="16" name="salary" value={{ old('salary') }} />
             </div>
             <div class="form-inline justify-content-center">
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary fixed-btn mr-2"><i class="fa fa-plus"></i>&nbsp Add</button>
                 <a class="btn btn-primary fixed-btn" href="{{ route('employee.index') }}">
                     <i class="fa fa-arrow-left"></i>&nbsp Back
                 </a>
@@ -101,6 +101,7 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/common.css">
 @stop
 
 @section('js')

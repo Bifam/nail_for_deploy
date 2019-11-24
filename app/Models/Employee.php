@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Kyslik\ColumnSortable\Sortable;
 
 /**
  * @property int $id
@@ -28,6 +29,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Employee extends Authenticatable
 {
     use Notifiable;
+    use Sortable;
 
     protected $guard = 'user';
 
@@ -43,5 +45,16 @@ class Employee extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+    public $sortable = ['id',
+        'first_name',
+        'last_name',
+        'email',
+        'sin_number',
+        'phone',
+        'address',
+        'worked_type',
+        'paid_type',
     ];
 }
