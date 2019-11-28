@@ -25,17 +25,17 @@
             <div class="form-group">
 
                 <label for="first_name">First Name *</label>
-                <input type="text" class="form-control" maxlength="256" name="first_name" value="{{ $employee->first_name }}" />
+                <input type="text" class="form-control" maxlength="256" name="first_name" value="{{ old('first_name', $employee->first_name) }}" />
             </div>
 
             <div class="form-group">
                 <label for="last_name">Last Name *</label>
-                <input type="text" class="form-control" maxlength="256" name="last_name" value="{{ $employee->last_name }}" />
+                <input type="text" class="form-control" maxlength="256" name="last_name" value="{{ old('last_name', $employee->last_name) }}" />
             </div>
 
             <div class="form-group">
                 <label for="email">Email *</label>
-                <input type="text" class="form-control" maxlength="256" name="email" value="{{ $employee->email }}" />
+                <input type="email" class="form-control" maxlength="256" name="email" value="{{ old('email', $employee->email) }}" />
             </div>
             <div class="form-group">
                 <label for="password">Password (Leave blank to keep current password)</label>
@@ -43,11 +43,11 @@
             </div>
             <div class="form-group">
                 <label for="sin_number">SIN Number *</label>
-                <input type="text" class="form-control" maxlength="16" name="sin_number" value={{ $employee->sin_number }} />
+                <input type="text" class="form-control" maxlength="16" name="sin_number" value="{{ old('sin_number', $employee->sin_number) }}" />
             </div>
             <div class="form-group">
                 <label for="sex">Sex</label>
-                <select name="sex" class="form-control" value={{ $employee->sex??1 }}>
+                <select name="sex" class="form-control" value={{ old('sex', $employee->sex) ?? 1 }}>
                 @foreach ($sex as $sexType)
                     <option value="{{ $sexType['value'] }}" {{ ( $sexType['value'] == ($employee->sex??1)) ? 'selected' : '' }}>
                         {{ $sexType['name'] }}
@@ -57,15 +57,15 @@
             </div>
             <div class="form-group">
                 <label for="address">Address</label>
-                <input type="text" class="form-control" maxlength="256" name="address" value="{{ $employee->address }}" />
+                <input type="text" class="form-control" maxlength="256" name="address" value="{{ old('address', $employee->address) }}" />
             </div>
             <div class="form-group">
                 <label for="phone_number">Phone</label>
-                <input type="number" class="form-control" maxlength="16" name="phone_number" value={{ $employee->phone_number }} />
+                <input type="number" class="form-control" maxlength="16" name="phone_number" value="{{ old('phone_number', $employee->phone_number) }}" />
             </div>
             <div class="form-group">
                 <label for="worked_type">Worked Type</label>
-                <select name="worked_type" class="form-control" value={{ $employee->worked_type }}>
+                <select name="worked_type" class="form-control" value={{ old('worked_type', $employee->worked_type) ?? 1 }}>
                 @foreach ($workedTypes as $workedType)
                     <option value="{{ $workedType['value'] }}" {{ ( $workedType['value'] == $employee->worked_type) ? 'selected' : '' }}>
                         {{ $workedType['name'] }}
@@ -75,7 +75,7 @@
             </div>
             <div class="form-group">
                 <label for="paid_type">Paid Type</label>
-                <select name="paid_type" class="form-control" value={{ $employee->paid_type }}>
+                <select name="paid_type" class="form-control" value={{ old('paid_type', $employee->paid_type) ?? 1 }}>
                 @foreach ($paidTypes as $paidType)
                     <option value="{{ $paidType['value'] }}" {{ ( $paidType['value'] == $employee->paid_type) ? 'selected' : '' }}>
                         {{ $paidType['name'] }}
@@ -85,7 +85,7 @@
             </div>
             <div class="form-group">
                 <label for="salary">Salary *</label>
-                <input type="number" class="form-control" maxlength="16" name="salary" value={{ $employee->salary }} />
+                <input type="number" class="form-control" maxlength="16" name="salary" value={{ old('salary', $employee->salary) }} />
             </div>
             <div class="form-inline justify-content-center">
                 <button type="submit" class="btn btn-primary fixed-btn mr-2"><i class="fa fa-edit"></i>&nbsp Update</button>

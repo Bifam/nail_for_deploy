@@ -40,13 +40,12 @@ Route::prefix('admin')->group(function() {
     Route::get('/reset','Auth\LoginController@showResetForm')->name('admin.reset');
     Route::post('/reset','Auth\LoginController@reset')->name('admin.reset.submit');
     Route::post('logout/', 'Auth\LoginController@logout')->name('admin.logout');
-    // Route::post('logout/', 'Auth\LoginController@logout')->name('admin.logout');
     Route::middleware(['auth.admin'])->group(function () {
         Route::get('/', 'Admin\HomeController@index')->name('admin.home');
         Route::get('/home', 'Admin\HomeController@index')->name('admin.home');
-        // Route::get('/employee', 'Admin\EmployeeController@index')->name('admin.employee.list');
         Route::resource('employee', 'Admin\EmployeeController');
-        // Route::post('/employee', 'Admin\HomeController@index')->name('employee.search');
+        Route::resource('task', 'Admin\TaskController');
+        Route::resource('customer', 'Admin\CustomerController');
     });
 });
 

@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Employee Management')
+@section('title', 'Customer Management')
 
 @section('content_header')
     <div>
-        <h1>Add Employee</h1>
+        <h1>Add Customer</h1>
     </div>
 @stop
 
@@ -21,7 +21,7 @@
         </div>
         <br />
         @endif
-        <form method="POST" action="{{ route('employee.store') }}">
+        <form method="POST" action="{{ route('customer.store') }}">
             @csrf
             <div class="form-group">
 
@@ -39,12 +39,14 @@
                 <input type="email" class="form-control" maxlength="256" name="email" value="{{ old('email') }}" />
             </div>
             <div class="form-group">
-                <label for="password">Password *</label>
-                <input type="password" class="form-control" maxlength="16" name="password" value="{{ old('password') }}" />
+                <label for="phone_number">Phone *</label>
+                <input type="text" class="form-control" maxlength="16" name="phone_number" value="{{ old('phone_number') }}" />
             </div>
             <div class="form-group">
-                <label for="sin_number">SIN Number *</label>
-                <input type="text" class="form-control" maxlength="16" name="sin_number" value="{{ old('sin_number') }}" />
+                <label for="birthday">Birthday</label>
+                <input type="text" class="date form-control" maxlength="16" readonly="readonly"
+                    style="cursor:pointer; background-color: #FFFFFF"
+                    id="birthday-date" name="birthday" value="{{ old('birthday') }}" />
             </div>
             <div class="form-group">
                 <label for="sex">Sex</label>
@@ -60,37 +62,9 @@
                 <label for="address">Address</label>
                 <input type="text" class="form-control" maxlength="256" name="address" value="{{ old('address') }}" />
             </div>
-            <div class="form-group">
-                <label for="phone_number">Phone</label>
-                <input type="number" class="form-control" maxlength="16" name="phone_number" value="{{ old('phone_number') }}" />
-            </div>
-            <div class="form-group">
-                <label for="worked_type">Worked Type</label>
-                <select name="worked_type" class="form-control" value={{ old('worked_type') ?? 1 }}>
-                @foreach ($workedTypes as $workedType)
-                    <option value="{{ $workedType['value'] }}" {{ ( $workedType['value'] == (old('worked_type')??1)) ? 'selected' : '' }}>
-                        {{ $workedType['name'] }}
-                    </option>
-                @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="paid_type">Paid Type</label>
-                <select name="paid_type" class="form-control" value={{ old('paid_type') ?? 1 }}>
-                @foreach ($paidTypes as $paidType)
-                    <option value="{{ $paidType['value'] }}" {{ ( $paidType['value'] == (old('paid_type')??1)) ? 'selected' : '' }}>
-                        {{ $paidType['name'] }}
-                    </option>
-                @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="salary">Salary *</label>
-                <input type="number" class="form-control" maxlength="16" name="salary" value={{ old('salary') }} />
-            </div>
             <div class="form-inline justify-content-center">
                 <button type="submit" class="btn btn-primary fixed-btn mr-2"><i class="fa fa-plus"></i>&nbsp Add</button>
-                <a class="btn btn-primary fixed-btn" href="{{ route('employee.index') }}">
+                <a class="btn btn-primary fixed-btn" href="{{ route('customer.index') }}">
                     <i class="fa fa-arrow-left"></i>&nbsp Back
                 </a>
             </div>
@@ -105,5 +79,10 @@
 @stop
 
 @section('js')
-
+    <script type="text/javascript" src="{{ URL::asset('js/app.js') }}"></script>
+    <script>
+        $('#birthday-date').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+    </script>
 @stop

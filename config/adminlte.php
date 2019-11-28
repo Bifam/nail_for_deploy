@@ -198,6 +198,11 @@ return [
             'icon' => 'fas fa-fw fa-address-book',
         ],
         [
+            'text' => 'Customer Management',
+            'url'  => 'admin/customer',
+            'icon' => 'fas fa-fw fa-users',
+        ],
+        [
             'text' => 'Task Management',
             'url'  => 'admin/task',
             'icon' => 'fas fa-fw fa-address-card',

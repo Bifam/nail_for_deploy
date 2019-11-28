@@ -15,6 +15,7 @@ class EmployeeController extends Controller
         $employees = Employee::where('first_name','LIKE','%'.$search.'%')
         ->orWhere('last_name','LIKE','%'.$search.'%')
         ->orWhere('email','LIKE','%'.$search.'%')
+        ->orWhere('phone_number','LIKE','%'.$search.'%')
         ->sortable()
         ->paginate(20);
 
@@ -45,20 +46,25 @@ class EmployeeController extends Controller
         $request->validate([
             'first_name' => ['required', 'max:255'],
             'last_name' => ['required', 'max:255'],
-            'email' => ['required', 'max:255', 'unique:employees'],
+            'email' => ['required', 'email', 'max:255', 'unique:employees'],
             'password' => ['required', 'min:6', 'max:16'],
             'sin_number' => ['required', 'max:16'],
             'worked_type' => 'required',
             'paid_type' => 'required',
-            'salary' => ['required', 'max:999999' ]
+            'sex' => 'required',
+            'phone_number' => ['max:16'],
+            'salary' => ['required', 'min:0', 'max:999999' ]
         ]);
         Employee::create($request->all());
 
-        return redirect('/admin/employee')->with('success', 'Employee created!');
+        return redirect('/admin/employee')->with('success', 'Employee created successfully!');
     }
 
     public function update(Request $request, $id)
     {
+        if (!is_numeric($id)) {
+            return redirect('/admin/employee')->with('error', 'Invalid update information!');
+        }
         $request->validate([
             'first_name' => ['required', 'max:255'],
             'last_name' => ['required', 'max:255'],
@@ -66,12 +72,17 @@ class EmployeeController extends Controller
             'sin_number' => ['required', 'max:16'],
             'worked_type' => 'required',
             'paid_type' => 'required',
-            'salary' => ['required', 'max:999999' ]
+            'sex' => 'required',
+            'phone_number' => ['max:16'],
+            'salary' => ['required', 'min:0', 'max:999999' ]
         ]);
 
 
 
         $employee = Employee::find($id);
+        if (!$employee) {
+            return redirect('/admin/employee')->with('error', 'Employee does not exists!');
+        }
         $employee->first_name = $request->get('first_name');
         $employee->last_name = $request->get('last_name');
         $employee->email = $request->get('email');
@@ -81,22 +92,27 @@ class EmployeeController extends Controller
         $employee->worked_type = $request->get('worked_type');
         $employee->paid_type = $request->get('paid_type');
         $employee->salary = $request->get('salary');
+        $employee->sex = $request->get('sex');
         if (!empty($request->get('password'))) {
             $employee->password = Hash::make($request->get('password'));
         }
         $employee->save();
 
-        return redirect('/admin/employee')->with('success', 'Employee updated!');
+        return redirect('/admin/employee')->with('success', 'Employee updated successfully!');
     }
 
-    public function destroy($employeeId)
+    public function destroy($id)
     {
-        $employee = Employee::find($employeeId);
+        if (!is_numeric($id)) {
+            return redirect('/admin/employee')->with('error', 'Invalid delete information!');
+        }
+
+        $employee = Employee::find($id);
         if (!$employee) {
             return Redirect::back()->withErrors(['msg', 'Error occurred while performing delete!']);
         }
         $employee->delete();
 
-        return redirect('/admin/employee')->with('success', 'Employee deleted!');
+        return redirect('/admin/employee')->with('success', 'Employee deleted successfully!');
     }
 }

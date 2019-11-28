@@ -9,7 +9,7 @@ use Kyslik\ColumnSortable\Sortable;
 /**
  * @property int $id
  * @property string $sin_number
- * @property int $phone_number
+ * @property string $phone_number
  * @property string $address
  * @property int $worked_type
  * @property int $paid_type
