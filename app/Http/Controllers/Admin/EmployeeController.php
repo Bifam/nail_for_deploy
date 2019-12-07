@@ -6,20 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
 {
     public function index(Request $request)
     {
+        $sex = \Config::get('app.sex');
         $search = trim($request->input('search'));
-        $employees = Employee::where('first_name','LIKE','%'.$search.'%')
-        ->orWhere('last_name','LIKE','%'.$search.'%')
-        ->orWhere('email','LIKE','%'.$search.'%')
-        ->orWhere('phone_number','LIKE','%'.$search.'%')
-        ->sortable()
-        ->paginate(20);
+        $employees = Employee::where('first_name', 'LIKE', '%' . $search . '%')
+            ->orWhere('last_name', 'LIKE', '%' . $search . '%')
+            ->orWhere('email', 'LIKE', '%' . $search . '%')
+            ->orWhere('phone_number', 'LIKE', '%' . $search . '%')
+            ->sortable()
+            ->paginate(20);
 
-        return view('admin.employee.list', compact('employees', 'search'));
+        return view('admin.employee.list', compact('employees', 'search', 'sex'));
     }
 
     public function create()
@@ -31,9 +33,12 @@ class EmployeeController extends Controller
         return view('admin.employee.create', compact('workedTypes', 'paidTypes', 'sex'));
     }
 
-    public function edit($employeeId)
+    public function edit($id)
     {
-        $employee = Employee::find($employeeId);
+        if (!is_numeric($id)) {
+            return redirect('/admin/employee')->with('error', 'Invalid update information!');
+        }
+        $employee = Employee::find($id);
         $sex = \Config::get('app.sex');
         $workedTypes = \Config::get('app.worked_types');
         $paidTypes = \Config::get('app.paid_types');
@@ -53,7 +58,7 @@ class EmployeeController extends Controller
             'paid_type' => 'required',
             'sex' => 'required',
             'phone_number' => ['max:16'],
-            'salary' => ['required', 'min:0', 'max:999999' ]
+            'salary' => ['required', 'numeric', 'min:0', 'max:999999'],
         ]);
         Employee::create($request->all());
 
@@ -74,7 +79,7 @@ class EmployeeController extends Controller
             'paid_type' => 'required',
             'sex' => 'required',
             'phone_number' => ['max:16'],
-            'salary' => ['required', 'min:0', 'max:999999' ]
+            'salary' => ['required', 'numeric', 'min:0', 'max:999999'],
         ]);
 
 

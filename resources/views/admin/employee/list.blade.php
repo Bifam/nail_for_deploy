@@ -32,31 +32,33 @@
 
 @section('content')
 @include('common.delmodal')
-<div class="col-sm-12 col-md-12" style="overflow: auto; ">
-    <table class="table table-striped">
+<div class="col-sm-12 col-md-12 table-responsive" style="overflow: auto;">
+    <table class="table table-striped table-bordered table-hover w-100">
         <thead>
-            <tr>
-            <td>@sortablelink('first_name', 'Name')</td>
-            <td>@sortablelink('email', 'Email')</td>
-            <td>@sortablelink('sin_number', 'SIN Number')</td>
-            <td>@sortablelink('phone', 'Phone')</td>
-            <td>@sortablelink('address', 'Addresss')</td>
-            <td>@sortablelink('worked_type', 'Worked Type')</td>
-            <td>@sortablelink('paid_type', 'Paid Type')</td>
-            <td colspan="2">Actions</td>
+            <tr class="d-flex">
+                <td class="col-2">@sortablelink('first_name', 'Name')</td>
+                <td class="col-2">@sortablelink('email', 'Email')</td>
+                <td class="col-1">@sortablelink('sin_number', 'SIN Number')</td>
+                <td class="col-1">@sortablelink('phone', 'Phone')</td>
+                <td class="col-1">@sortablelink('sex', 'Sex')</td>
+                <td class="col-2">@sortablelink('address', 'Addresss')</td>
+                <td class="col-1">@sortablelink('worked_type', 'Worked Type')</td>
+                <td class="col-1">@sortablelink('paid_type', 'Paid Type')</td>
+                <td class="col-1">Actions</td>
             </tr>
         </thead>
         <tbody>
             @foreach($employees as $employee)
-            <tr>
-                <td>{{$employee->first_name}} {{$employee->last_name}}</td>
-                <td>{{$employee->email}}</td>
-                <td>{{$employee->sin_number}}</td>
-                <td>{{$employee->phone_number}}</td>
-                <td>{{$employee->address}}</td>
-                <td>{{$employee->worked_type == 1 ? 'Fulltime' : 'Part-time'}}</td>
-                <td>{{$employee->paid_type == 1 ? 'Hours' : 'Portion'}}</td>
-                <td class="form-inline">
+            <tr class="d-flex">
+                <td  class="col-2 word-break">{{$employee->first_name}} {{$employee->last_name}}</td>
+                <td  class="col-2 word-break">{{$employee->email}}</td>
+                <td  class="col-1 word-break">{{$employee->sin_number}}</td>
+                <td  class="col-1 word-break">{{$employee->phone_number}}</td>
+                <td  class="col-1 word-break">{{$sex[$employee->sex]}}</td>
+                <td  class="col-2 word-break">{{$employee->address}}</td>
+                <td  class="col-1 word-break">{{$employee->worked_type == 1 ? 'Fulltime' : 'Part-time'}}</td>
+                <td  class="col-1 word-break">{{$employee->paid_type == 1 ? 'Hours' : 'Portion'}}</td>
+                <td  class="col-1 word-break form-inline">
                     <a href="{{ route('employee.edit', $employee->id)}}"
                         class="btn btn-primary fixed-act-btn mr-1" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
 
@@ -78,21 +80,19 @@
 @stop
 
 @section('js')
+    <script type="text/javascript">
+        function deleteData(id)
+        {
+            var id = id;
+            var url = '{{ route("employee.destroy", ":id") }}';
+            url = url.replace(':id', id);
+            console.log(url);
+            $("#deleteForm").attr('action', url);
+        }
 
+        function formSubmit()
+        {
+            $("#deleteForm").submit();
+        }
+    </script>
 @stop
-
-<script type="text/javascript">
-	function deleteData(id)
-    {
-        var id = id;
-        var url = '{{ route("employee.destroy", ":id") }}';
-        url = url.replace(':id', id);
-        console.log(url);
-        $("#deleteForm").attr('action', url);
-    }
-
-    function formSubmit()
-    {
-        $("#deleteForm").submit();
-    }
-</script>

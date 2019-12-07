@@ -1520,7 +1520,7 @@ a.ui-button:active,
 @charset "UTF-8";
 
 /*!
- * Bootstrap v4.4.1 (https://getbootstrap.com/)
+ * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -7053,7 +7053,7 @@ input[type=button].btn-block {
 }
 
 .page-link:focus {
-  z-index: 3;
+  z-index: 2;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
 }
@@ -7070,7 +7070,7 @@ input[type=button].btn-block {
 }
 
 .page-item.active .page-link {
-  z-index: 3;
+  z-index: 1;
   color: #fff;
   background-color: #3490dc;
   border-color: #3490dc;

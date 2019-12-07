@@ -1,3 +1,7 @@
 .fixed-btn {
     width: 100px;
 }
+
+.word-break {
+    word-break: break-all;
+}

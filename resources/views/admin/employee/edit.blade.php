@@ -49,8 +49,8 @@
                 <label for="sex">Sex</label>
                 <select name="sex" class="form-control" value={{ old('sex', $employee->sex) ?? 1 }}>
                 @foreach ($sex as $sexType)
-                    <option value="{{ $sexType['value'] }}" {{ ( $sexType['value'] == ($employee->sex??1)) ? 'selected' : '' }}>
-                        {{ $sexType['name'] }}
+                    <option value="{{ $loop->index }}" {{ ( $loop->index == ($employee->sex??1)) ? 'selected' : '' }}>
+                        {{ $sexType }}
                     </option>
                 @endforeach
                 </select>
@@ -67,8 +67,8 @@
                 <label for="worked_type">Worked Type</label>
                 <select name="worked_type" class="form-control" value={{ old('worked_type', $employee->worked_type) ?? 1 }}>
                 @foreach ($workedTypes as $workedType)
-                    <option value="{{ $workedType['value'] }}" {{ ( $workedType['value'] == $employee->worked_type) ? 'selected' : '' }}>
-                        {{ $workedType['name'] }}
+                    <option value="{{ $loop->index }}" {{ ( $loop->index == $employee->worked_type) ? 'selected' : '' }}>
+                        {{ $workedType }}
                     </option>
                 @endforeach
                 </select>
@@ -77,15 +77,15 @@
                 <label for="paid_type">Paid Type</label>
                 <select name="paid_type" class="form-control" value={{ old('paid_type', $employee->paid_type) ?? 1 }}>
                 @foreach ($paidTypes as $paidType)
-                    <option value="{{ $paidType['value'] }}" {{ ( $paidType['value'] == $employee->paid_type) ? 'selected' : '' }}>
-                        {{ $paidType['name'] }}
+                    <option value="{{ $loop->index }}" {{ ( $loop->index == $employee->paid_type) ? 'selected' : '' }}>
+                        {{ $paidType }}
                     </option>
                 @endforeach
                 </select>
             </div>
             <div class="form-group">
                 <label for="salary">Salary *</label>
-                <input type="number" class="form-control" maxlength="16" name="salary" value={{ old('salary', $employee->salary) }} />
+                <input type="number" class="form-control" min="0" max="999999" name="salary" value={{ old('salary', $employee->salary) }} />
             </div>
             <div class="form-inline justify-content-center">
                 <button type="submit" class="btn btn-primary fixed-btn mr-2"><i class="fa fa-edit"></i>&nbsp Update</button>

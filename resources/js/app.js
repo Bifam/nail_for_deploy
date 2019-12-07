@@ -10,3 +10,6 @@ import $ from 'jquery';
 window.$ = window.jQuery = $;
 
 import 'jquery-ui/ui/widgets/datepicker.js';
+import 'select2';
+import 'select2/dist/css/select2.min.css';
+import 'select2-theme-bootstrap4/dist/select2-bootstrap.min.css';

@@ -16,15 +16,16 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
+        $sex = \Config::get('app.sex');
         $search = trim($request->input('search'));
-        $customers = Customer::where('first_name','LIKE','%'.$search.'%')
-        ->orWhere('last_name','LIKE','%'.$search.'%')
-        ->orWhere('email','LIKE','%'.$search.'%')
-        ->orWhere('phone_number','LIKE','%'.$search.'%')
-        ->sortable()
-        ->paginate(20);
+        $customers = Customer::where('first_name', 'LIKE', '%' . $search . '%')
+            ->orWhere('last_name', 'LIKE', '%' . $search . '%')
+            ->orWhere('email', 'LIKE', '%' . $search . '%')
+            ->orWhere('phone_number', 'LIKE', '%' . $search . '%')
+            ->sortable()
+            ->paginate(20);
 
-        return view('admin.customer.list', compact('customers', 'search'));
+        return view('admin.customer.list', compact('customers', 'search', 'sex'));
     }
 
     /**
@@ -78,6 +79,9 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
+        if (!is_numeric($id)) {
+            return redirect('/admin/customer')->with('error', 'Invalid update information!');
+        }
         $customer = Customer::find($id);
         $sex = \Config::get('app.sex');
         return view('admin.customer.edit', compact('customer', 'sex'));

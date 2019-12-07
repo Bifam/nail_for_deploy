@@ -52,8 +52,8 @@
                 <label for="sex">Sex</label>
                 <select name="sex" class="form-control" value={{ old('sex') ?? 1 }}>
                 @foreach ($sex as $sexType)
-                    <option value="{{ $sexType['value'] }}" {{ ( $sexType['value'] == (old('sex')??1)) ? 'selected' : '' }}>
-                        {{ $sexType['name'] }}
+                    <option value="{{ $loop->index }}" {{ ( $loop->index == (old('sex')??1)) ? 'selected' : '' }}>
+                        {{ $sexType }}
                     </option>
                 @endforeach
                 </select>

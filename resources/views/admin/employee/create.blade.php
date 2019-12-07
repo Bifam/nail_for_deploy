@@ -50,8 +50,8 @@
                 <label for="sex">Sex</label>
                 <select name="sex" class="form-control" value={{ old('sex') ?? 1 }}>
                 @foreach ($sex as $sexType)
-                    <option value="{{ $sexType['value'] }}" {{ ( $sexType['value'] == (old('sex')??1)) ? 'selected' : '' }}>
-                        {{ $sexType['name'] }}
+                    <option value="{{ $loop->index }}" {{ ( $loop->index == (old('sex')??1)) ? 'selected' : '' }}>
+                        {{ $sexType }}
                     </option>
                 @endforeach
                 </select>
@@ -68,8 +68,8 @@
                 <label for="worked_type">Worked Type</label>
                 <select name="worked_type" class="form-control" value={{ old('worked_type') ?? 1 }}>
                 @foreach ($workedTypes as $workedType)
-                    <option value="{{ $workedType['value'] }}" {{ ( $workedType['value'] == (old('worked_type')??1)) ? 'selected' : '' }}>
-                        {{ $workedType['name'] }}
+                    <option value="{{ $loop->index }}" {{ ( $loop->index == (old('worked_type')??1)) ? 'selected' : '' }}>
+                        {{ $workedType }}
                     </option>
                 @endforeach
                 </select>
@@ -78,15 +78,15 @@
                 <label for="paid_type">Paid Type</label>
                 <select name="paid_type" class="form-control" value={{ old('paid_type') ?? 1 }}>
                 @foreach ($paidTypes as $paidType)
-                    <option value="{{ $paidType['value'] }}" {{ ( $paidType['value'] == (old('paid_type')??1)) ? 'selected' : '' }}>
-                        {{ $paidType['name'] }}
+                    <option value="{{ $loop->index }}" {{ ( $loop->index == (old('paid_type')??1)) ? 'selected' : '' }}>
+                        {{ $paidType }}
                     </option>
                 @endforeach
                 </select>
             </div>
             <div class="form-group">
                 <label for="salary">Salary *</label>
-                <input type="number" class="form-control" maxlength="16" name="salary" value={{ old('salary') }} />
+                <input type="number" class="form-control" min="0" max="999999" name="salary" value={{ old('salary') }} />
             </div>
             <div class="form-inline justify-content-center">
                 <button type="submit" class="btn btn-primary fixed-btn mr-2"><i class="fa fa-plus"></i>&nbsp Add</button>

@@ -18,7 +18,7 @@ class AuthUsers
     public function handle($request, Closure $next)
     {
         if (false == Auth::guard('user')->check()) {
-            return redirect()->route('login'); //redirect User to login page
+            return redirect()->route('employee.login'); //redirect User to login page
         }
 
         return $next($request);
