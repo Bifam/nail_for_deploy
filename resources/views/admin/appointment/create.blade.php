@@ -26,25 +26,15 @@
             <div class="form-group">
                 <label for="customer_id">Customer's Phone *</label>
                 <div class="form-inline">
-                    <select class="form-control col-md-5" name="customer_id" id="customer_id" value="{{ old('customer') }}">
-                        <option value="AL">Alabama</option>
-                        <option value="WY">Wyoming</option>
-                    </select>
-                    <p class="col-md-1 text-center"> - </p>
-                    <input type="text" class="form-control col-md-6" value="{{ old('customer') }}" disabled />
+                    <input type="text" class="form-control col-md-4" value="{{ old('phone_number') }}" disabled />
+                    <a href="javascript:;" onclick="checkCustomerByPhone()"
+                        class="btn btn-success fixed-act-btn " data-toggle="tooltip" title="Check Customer"><i class="fa fa-question"></i></a>
+                    <p class="col-md-1 text-center"> → </p>
+                    <input type="text" class="form-control col-md-6" disabled />
                 </div>
             </div>
-
-            <div class="form-group">
-                <label for="employee_id">Employee *</label>
-                <input type="select" class="form-control" name="employee_id" value="{{ old('employee') }}" />
-            </div>
-            <div class="form-group">
-                <label for="status">Status *</label>
-                <input type="select" class="form-control" name="status" value="{{ old('price') }}" />
-            </div>
             <div class="form-inline justify-content-center">
-                <button type="submit" class="btn btn-primary fixed-btn mr-2"><i class="fa fa-plus"></i>&nbsp Add</button>
+                <button type="submit" class="btn btn-primary fixed-btn mr-2"><i class="fa fa-plus"></i>&nbsp Register</button>
                 <a class="btn btn-primary fixed-btn" href="{{ route('appointment.index') }}">
                     <i class="fa fa-arrow-left"></i>&nbsp Back
                 </a>
