@@ -59,7 +59,7 @@
                         class="btn btn-primary fixed-act-btn mr-1" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
 
                     <a href="javascript:;" data-toggle="modal" onclick="deleteData({{$customer->id}})"
-                        data-target="#DeleteModal" class="btn btn-xs btn-danger fixed-act-btn"><i class="fa fa-trash"></i></a>
+                        data-target="#DeleteModal" class="btn btn-danger fixed-act-btn"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
             @endforeach

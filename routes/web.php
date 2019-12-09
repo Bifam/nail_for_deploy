@@ -27,7 +27,7 @@ Route::post('/reset', 'Employee\LoginController@reset')->name('employee.reset.su
 Route::get('logout/', 'Employee\LoginController@logout')->name('employee.logout');
 Route::middleware(['auth.user'])->group(function () {
     Route::get('/home', function () {
-        return view('home');
+        return view('employee.home');
     })->name('home');
 });
 // });
@@ -47,6 +47,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('task', 'Admin\TaskController');
         Route::resource('customer', 'Admin\CustomerController');
         Route::resource('appointment', 'Admin\AppointmentController');
+        Route::resource('checkin', 'Admin\CheckinController');
         // Route::resource('bill', 'Admin\BillController');
         // Route::resource('salary', 'Admin\SalaryController');
         // Route::resource('income', 'Admin\IncomeController');

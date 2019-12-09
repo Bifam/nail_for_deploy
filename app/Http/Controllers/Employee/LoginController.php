@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -53,11 +54,9 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $rememberMe = $request->remember ? true : false;
-        $employee = Employee::where(['email' => $request->email, 'password' => $request->password])->first();
-
-        if (!empty($employee)) {
+        $employee = Employee::where(['email' => $request->email])->first();
+        if (!empty($employee) && Hash::check($request->password, $employee->password)) {
             Auth::guard('user')->login($employee, $rememberMe);
-
             return redirect()->intended('/home');
         }
 

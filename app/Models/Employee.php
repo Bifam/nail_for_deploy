@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Kyslik\ColumnSortable\Sortable;
+use App\Models\EmployeesCheckin;
 
 /**
  * @property int $id
@@ -32,6 +33,11 @@ class Employee extends Authenticatable
     use Sortable;
 
     protected $guard = 'user';
+
+    public function checkin()
+    {
+        return $this->hasOne(EmployeesCheckin::class, 'employee_id', 'id');
+    }
 
     /**
      * @var array
